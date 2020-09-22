@@ -1,32 +1,31 @@
 import React from "react";
 import Note from "../Components/Notes/Note";
 import styled from "styled-components";
+import {connect} from "react-redux";
+import {AppState} from "../Redux/Store/ConfigureStore";
+import {INote} from "../Interfaces/INote";
+import {ThunkDispatch} from "redux-thunk";
+import {AppActions} from "../Redux/Types/NoteActionsTypes";
+import {startSetNotes} from "../Redux/Actions/NoteActions";
+import NotesService from "../Service/NotesService";
 
-type MyState = {
-    notes: Note[]
-}
+type Props = LinkStateProps;
 
-class Notes extends React.Component {
+class Notes extends React.Component<Props> {
 
-    state: MyState = {
-        notes: []
+    componentDidMount() {
+        NotesService.getNotes()
+            .then((notes: INote[]) => startSetNotes(notes))
     }
 
     render() {
+        const { notes } = this.props;
+
         return (
             <Wrapper>
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-                <Note />
+                {notes.map(note => (
+                    <Note note={note} />
+                ))}
             </Wrapper>
         )
     }
@@ -57,4 +56,19 @@ const Wrapper = styled.div`
   }
 `;
 
-export default Notes;
+interface LinkStateProps {
+    notes: INote[]
+}
+
+interface LinkDispatchProps {
+   // startEditNote: (note: INote) => void;
+    startSetNotes: (notes: INote[]) => void;
+}
+
+const mapStateToProps = (state: AppState): LinkStateProps => state;
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AppActions>): LinkDispatchProps => ({
+  //  startEditNote: note => dispatch(startEditNote(note)),
+    startSetNotes: notes => dispatch(startSetNotes(notes))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notes);

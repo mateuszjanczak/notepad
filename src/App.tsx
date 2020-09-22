@@ -6,18 +6,22 @@ import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import styled from "styled-components";
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import {store} from "./Redux/Store/ConfigureStore";
 
 class App extends React.Component {
   render() {
     return (
-        <BrowserRouter>
-            <GlobalStyle />
-            <Wrapper>
-                <Header />
-                <Container />
-            </Wrapper>
-            <Footer />
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <GlobalStyle />
+                <Wrapper>
+                    <Header />
+                    <Container />
+                </Wrapper>
+                <Footer />
+            </BrowserRouter>
+        </Provider>
     );
   }
 }

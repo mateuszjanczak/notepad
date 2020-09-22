@@ -1,0 +1,45 @@
+import { INote } from "../../Interfaces/INote";
+import {
+    NoteActionTypes,
+    ADD_NOTE,
+    REMOVE_NOTE,
+    EDIT_NOTE,
+    SET_NOTES
+} from "../Types/NoteActionsTypes";
+
+const notesReducerDefaultState: INote[] = [
+    {
+        id: "1",
+        title: "XD",
+        content: "nw"
+    }
+];
+
+const noteReducer = (
+    state = notesReducerDefaultState,
+    action: NoteActionTypes
+): INote[] => {
+    switch (action.type) {
+        case ADD_NOTE:
+            return [...state, action.note];
+        case REMOVE_NOTE:
+            return state.filter(({ id }) => id !== action.id);
+        case EDIT_NOTE:
+            return state.map(note => {
+                if (note.id === action.note.id) {
+                    return {
+                        ...note,
+                        ...action.note
+                    };
+                } else {
+                    return note;
+                }
+            });
+        case SET_NOTES:
+            return action.notes;
+        default:
+            return state;
+    }
+};
+
+export { noteReducer };

@@ -1,25 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "../General/Button";
+import {INote} from "../../Interfaces/INote";
+import Modal from "../Modal/Modal";
 
-class Note extends React.Component {
+class Note extends React.Component<Props> {
 
     state = {
-        id: "",
-        title: "",
-        content: ""
+        modal: false
+    }
+
+    toggleModal = () => {
+        this.setState({
+            ...this.state,
+            modal: !this.state.modal
+        })
     }
 
     render() {
+        const { note } = this.props;
+
         return (
             <Wrapper>
-                <Title>Title...</Title>
-                <Content>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</Content>
+                <Title>{note.title}</Title>
+                <Content>{note.content}</Content>
                 <Action>
                     <Button>VIEW</Button>
-                    <Button>EDIT</Button>
+                    <Button onClick={this.toggleModal}>EDIT</Button>
                     <Button>DELETE</Button>
                 </Action>
+                {this.state.modal && <Modal note={note} toggleModal={this.toggleModal} />}
             </Wrapper>
         )
     }
@@ -56,4 +66,11 @@ const Action = styled.div`
   border-top: 1px solid black;
 `;
 
-export default Note;
+type Props = {
+    note: INote
+}
+
+
+
+
+export default (Note);

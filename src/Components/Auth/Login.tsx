@@ -12,7 +12,7 @@ class Login extends React.Component {
                 </Label>
                 <Label>
                     <Input placeholder="password"/>
-                    {true && <Error>Incorrect password</Error>}
+                    {<Error>Incorrect password</Error>}
                 </Label>
                 <Button>log in</Button>
             </Wrapper>
@@ -28,8 +28,13 @@ const Wrapper = styled.div`
   justify-items: center;
   align-self: start;
   justify-self: end;
+  
   @media (max-width: 768px) {
     justify-self: center;
+  }
+  
+  @media (max-width: 575px) {
+    justify-self: unset;
   }
 `;
 

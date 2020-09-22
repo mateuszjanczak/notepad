@@ -30,8 +30,13 @@ const Wrapper = styled.div`
   justify-items: center;
   align-self: start;
   justify-self: start;
+  
   @media (max-width: 768px) {
     justify-self: center;
+  }
+  
+  @media (max-width: 575px) {
+    justify-self: unset;
   }
 `;
 
