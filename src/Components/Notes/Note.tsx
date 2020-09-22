@@ -18,18 +18,19 @@ class Note extends React.Component<Props> {
     }
 
     render() {
-        const { note } = this.props;
+        const { note, editFn, removeFn } = this.props;
+        const { id, title, content } = note;
 
         return (
             <Wrapper>
-                <Title>{note.title}</Title>
-                <Content>{note.content}</Content>
+                <Title>{title}</Title>
+                <Content>{content}</Content>
                 <Action>
                     <Button>VIEW</Button>
                     <Button onClick={this.toggleModal}>EDIT</Button>
-                    <Button>DELETE</Button>
+                    <Button onClick={() => removeFn(id)}>DELETE</Button>
                 </Action>
-                {this.state.modal && <Modal note={note} toggleModal={this.toggleModal} />}
+                {this.state.modal && <Modal note={note} toggleModal={this.toggleModal} editFn={editFn} />}
             </Wrapper>
         )
     }
@@ -39,6 +40,7 @@ const Wrapper = styled.div`
   border: 1px solid #333;
   background: linear-gradient(0deg, rgba(255,255,200,1) 20%, rgba(255,255,225,1) 100%);
   padding: 1rem;
+  transition: all 1s;
 `;
 
 const Title = styled.h3`
@@ -67,10 +69,9 @@ const Action = styled.div`
 `;
 
 type Props = {
-    note: INote
+    note: INote,
+    editFn(note: INote): void
+    removeFn(id: string): void
 }
-
-
-
 
 export default (Note);

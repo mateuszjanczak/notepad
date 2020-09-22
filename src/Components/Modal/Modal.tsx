@@ -30,7 +30,7 @@ class Modal extends React.Component<IProps, IState> {
 
     render() {
 
-        const { toggleModal } = this.props;
+        const { toggleModal, editFn } = this.props;
 
         const { title, content } = this.state;
 
@@ -44,7 +44,7 @@ class Modal extends React.Component<IProps, IState> {
                         <Input placeholder="Content" name="content" value={content} onChange={this.handleChange}/>
                     </Label>
                     <Action>
-                        <Button>EDIT</Button>
+                        <Button onClick={() => editFn(this.state)}>EDIT</Button>
                         <Button onClick={toggleModal}>CLOSE</Button>
                     </Action>
                 </Container>
@@ -85,7 +85,8 @@ const Action = styled.div`
 
 type IProps = {
     note: INote,
-    toggleModal(): void
+    toggleModal(): void,
+    editFn(note: INote): void
 }
 
 type IState = {

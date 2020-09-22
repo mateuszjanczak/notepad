@@ -7,13 +7,7 @@ import {
     SET_NOTES
 } from "../Types/NoteActionsTypes";
 
-const notesReducerDefaultState: INote[] = [
-    {
-        id: "1",
-        title: "XD",
-        content: "nw"
-    }
-];
+const notesReducerDefaultState: INote[] = [];
 
 const noteReducer = (
     state = notesReducerDefaultState,
@@ -23,7 +17,7 @@ const noteReducer = (
         case ADD_NOTE:
             return [...state, action.note];
         case REMOVE_NOTE:
-            return state.filter(({ id }) => id !== action.id);
+            return state.filter((note) => note.id !== action.id);
         case EDIT_NOTE:
             return state.map(note => {
                 if (note.id === action.note.id) {

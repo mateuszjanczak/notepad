@@ -54,7 +54,9 @@ export const startEditNote = (note: INote) => {
 };
 
 export const startSetNotes = (notes: INote[]) => {
+    console.log("siema")
     return (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+        console.log("XD")
         dispatch(setNotes(notes));
     };
 };

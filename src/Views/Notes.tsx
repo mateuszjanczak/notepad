@@ -6,16 +6,36 @@ import {AppState} from "../Redux/Store/ConfigureStore";
 import {INote} from "../Interfaces/INote";
 import {ThunkDispatch} from "redux-thunk";
 import {AppActions} from "../Redux/Types/NoteActionsTypes";
-import {startSetNotes} from "../Redux/Actions/NoteActions";
+import {
+    startSetNotes as startSetNotesAction,
+    startEditNote as startEditNoteAction,
+    startRemoveNote as startRemoveNoteAction
+} from "../Redux/Actions/NoteActions";
 import NotesService from "../Service/NotesService";
 
-type Props = LinkStateProps;
+type Props = LinkStateProps & LinkDispatchProps;
 
 class Notes extends React.Component<Props> {
 
     componentDidMount() {
+        const { startSetNotes } = this.props;
+
         NotesService.getNotes()
             .then((notes: INote[]) => startSetNotes(notes))
+    }
+
+    editFn = (note: INote) => {
+        const { startEditNote } = this.props;
+
+        NotesService.editNote(note)
+            .then((note: INote) => startEditNote(note));
+    }
+
+    removeFn = (id: string) => {
+        const { startRemoveNote } = this.props;
+
+        NotesService.removeNote(id)
+            .then(() => startRemoveNote(id));
     }
 
     render() {
@@ -24,7 +44,7 @@ class Notes extends React.Component<Props> {
         return (
             <Wrapper>
                 {notes.map(note => (
-                    <Note note={note} />
+                    <Note key={note.id} note={note} editFn={this.editFn} removeFn={this.removeFn}/>
                 ))}
             </Wrapper>
         )
@@ -61,14 +81,16 @@ interface LinkStateProps {
 }
 
 interface LinkDispatchProps {
-   // startEditNote: (note: INote) => void;
+    startEditNote: (note: INote) => void;
+    startRemoveNote: (id: string) => void;
     startSetNotes: (notes: INote[]) => void;
 }
 
 const mapStateToProps = (state: AppState): LinkStateProps => state;
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AppActions>): LinkDispatchProps => ({
-  //  startEditNote: note => dispatch(startEditNote(note)),
-    startSetNotes: notes => dispatch(startSetNotes(notes))
+    startEditNote: note => dispatch(startEditNoteAction(note)),
+    startRemoveNote: id => dispatch(startRemoveNoteAction(id)),
+    startSetNotes: notes => dispatch(startSetNotesAction(notes))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notes);
