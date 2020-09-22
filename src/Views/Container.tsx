@@ -1,8 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import {routes} from "../Routes/Routes";
 import Notes from "./Notes";
-import Login from "./Login";
+import Auth from "./Auth";
 import styled from "styled-components";
 import SingleNote from "./SingleNote";
 
@@ -10,13 +10,11 @@ class Container extends React.Component {
     render() {
         return (
             <Wrapper>
-                <Router>
-                    <Switch>
-                        <Route exact path={[routes.homepage, routes.notes]} component={Notes} />
-                        <Route exact path={routes.singleNote} component={SingleNote} />
-                        <Route exact path={routes.login} component={Login} />
-                    </Switch>
-                </Router>
+                <Switch>
+                    <Route exact path={['', routes.homepage, routes.notes]} component={Notes} />
+                    <Route exact path={routes.singleNote} component={SingleNote} />
+                    <Route exact path={routes.login} component={Auth} />
+                </Switch>
             </Wrapper>
         )
     }
@@ -43,7 +41,7 @@ const Wrapper = styled.div`
   }
     
   @media (min-width: 1200px) {
-    width: 80%;
+    width: 95%;
   }
 `;
 

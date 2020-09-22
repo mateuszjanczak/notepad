@@ -10,7 +10,6 @@ class Note extends React.Component {
         content: ""
     }
 
-
     render() {
         return (
             <Wrapper>
@@ -39,7 +38,7 @@ const Title = styled.h3`
 `;
 
 const Content = styled.div`
-  height: 9rem;
+  height: 10.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;

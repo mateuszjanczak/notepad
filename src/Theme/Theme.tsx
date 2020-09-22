@@ -14,8 +14,8 @@ const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;
         padding: 0;
-        font-size: 1.6rem;
-        font-family: 'Open Sans', sans-serif;
+        font-size: 1.5rem;
+        font-family: 'Noto Sans JP', sans-serif;
     }
     
     *:focus {

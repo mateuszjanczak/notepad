@@ -40,16 +40,20 @@ const Wrapper = styled.div`
     grid-template-columns: repeat(1, 1fr);
   }
     
-  @media (min-width: 768px) {
+  @media (min-width: 780px) {
     grid-template-columns: repeat(2, 1fr);
   }
     
-  @media (min-width: 992px) {
+  @media (min-width: 1090px) {
     grid-template-columns: repeat(3, 1fr);
   }
     
-  @media (min-width: 1200px) {
+  @media (min-width: 1400px) {
     grid-template-columns: repeat(4, 1fr);
+  }
+  
+  @media (min-width: 1710px) {
+    grid-template-columns: repeat(5, 1fr);
   }
 `;
 
