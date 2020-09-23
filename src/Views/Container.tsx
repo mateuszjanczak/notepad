@@ -5,15 +5,18 @@ import Notes from "./Notes";
 import Auth from "./Auth";
 import styled from "styled-components";
 import SingleNote from "./SingleNote";
+import Logout from "./Logout";
+import AuthenticatedRoute from "../Routes/AuthenticatedRoute";
 
 class Container extends React.Component {
     render() {
         return (
             <Wrapper>
                 <Switch>
-                    <Route exact path={['', routes.homepage, routes.notes]} component={Notes} />
-                    <Route exact path={routes.singleNote} component={SingleNote} />
                     <Route exact path={routes.login} component={Auth} />
+                    <AuthenticatedRoute exact path={['', routes.homepage, routes.notes]} component={Notes} />
+                    <AuthenticatedRoute exact path={routes.singleNote} component={SingleNote} />
+                    <AuthenticatedRoute exact path={routes.logout} component={Logout} />
                 </Switch>
             </Wrapper>
         )

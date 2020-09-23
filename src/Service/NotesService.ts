@@ -1,4 +1,5 @@
 import {INote} from "../Interfaces/INote";
+import AuthService from "./AuthService";
 
 class NotesService {
 
@@ -7,9 +8,12 @@ class NotesService {
     getNotes(): Promise<INote[]> {
         return fetch(this.url, {
             headers: {
-                'Authorization' : 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXRldXN6IiwiZXhwIjoxNjQyODEwNDc4fQ.egdpYp4k09878oWofU1nj3Ij9Kct-LADhzHB5RgWVo8cEGp1Wbx7T79o0VGOJkXXqMq_9O2E4j8khIdSYcaYJg'
+                'Authorization' : AuthService.getHeaders()
             }
-        }).then(res => res.json());
+        }).then(res => {
+            if(!res.ok) throw res;
+            return res.json();
+        });
     }
 
     editNote(note: INote): Promise<INote> {
@@ -17,21 +21,38 @@ class NotesService {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization' : 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXRldXN6IiwiZXhwIjoxNjQyODEwNDc4fQ.egdpYp4k09878oWofU1nj3Ij9Kct-LADhzHB5RgWVo8cEGp1Wbx7T79o0VGOJkXXqMq_9O2E4j8khIdSYcaYJg'
+                'Authorization' : AuthService.getHeaders()
             },
             body: JSON.stringify({
                 title: note.title,
                 content: note.content
             })
-        }).then(res => res.json());
+        }).then(res => {
+            if(!res.ok) throw res;
+            return res.json();
+        });
     }
 
     removeNote(id: string): Promise<Response> {
         return fetch(this.url + "/" + id, {
             method: "DELETE",
             headers: {
-                'Authorization' : 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXRldXN6IiwiZXhwIjoxNjQyODEwNDc4fQ.egdpYp4k09878oWofU1nj3Ij9Kct-LADhzHB5RgWVo8cEGp1Wbx7T79o0VGOJkXXqMq_9O2E4j8khIdSYcaYJg'
+                'Authorization' : AuthService.getHeaders()
             }
+        }).then(res => {
+            if(!res.ok) throw res;
+            return res;
+        });
+    }
+
+    getSingleNote(id: string): Promise<INote> {
+        return fetch(this.url + "/" + id, {
+            headers: {
+                'Authorization' : AuthService.getHeaders()
+            }
+        }).then(res => {
+            if(!res.ok) throw res;
+            return res.json();
         });
     }
 }

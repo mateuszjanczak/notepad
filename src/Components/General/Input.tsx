@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const Input = styled.input`
+  width: 30rem;
   font-size: 16px;
   letter-spacing: 0;
   border: 1px solid #24292e;

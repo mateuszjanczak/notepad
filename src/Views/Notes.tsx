@@ -35,7 +35,7 @@ class Notes extends React.Component<Props> {
         const { startRemoveNote } = this.props;
 
         NotesService.removeNote(id)
-            .then(() => startRemoveNote(id));
+            .then(() => startRemoveNote(id))
     }
 
     render() {

@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {AppState} from "../Store/ConfigureStore";
 import {INote} from "../../Interfaces/INote";
-import {ADD_NOTE, AppActions, EDIT_NOTE, REMOVE_NOTE, SET_NOTES} from "../Types/NoteActionsTypes";
+import {ADD_NOTE, AppActions, CLEAR_NOTES, EDIT_NOTE, REMOVE_NOTE, SET_NOTES} from "../Types/NoteActionsTypes";
 
 export const addNote = (note: INote): AppActions => ({
     type: ADD_NOTE,
@@ -21,6 +21,10 @@ export const editNote = (note: INote): AppActions => ({
 export const setNotes = (notes: INote[]): AppActions => ({
     type: SET_NOTES,
     notes
+});
+
+export const clearNotes = (): AppActions => ({
+    type: CLEAR_NOTES
 });
 
 export const startAddNote = (noteData: {
@@ -54,9 +58,13 @@ export const startEditNote = (note: INote) => {
 };
 
 export const startSetNotes = (notes: INote[]) => {
-    console.log("siema")
     return (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-        console.log("XD")
         dispatch(setNotes(notes));
     };
 };
+
+export const startClearNotes = () => {
+    return (dispatch: Dispatch<AppActions>) => {
+        dispatch(clearNotes());
+    };
+}

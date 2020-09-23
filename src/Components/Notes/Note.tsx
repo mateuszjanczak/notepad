@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Button from "../General/Button";
 import {INote} from "../../Interfaces/INote";
 import Modal from "../Modal/Modal";
+import {NavLink} from "react-router-dom";
+import {routes} from "../../Routes/Routes";
 
 class Note extends React.Component<Props> {
 
@@ -26,7 +28,7 @@ class Note extends React.Component<Props> {
                 <Title>{title}</Title>
                 <Content>{content}</Content>
                 <Action>
-                    <Button>VIEW</Button>
+                    <Button as={NavLink} to={routes.notes + "/" + id}>VIEW</Button>
                     <Button onClick={this.toggleModal}>EDIT</Button>
                     <Button onClick={() => removeFn(id)}>DELETE</Button>
                 </Action>
@@ -74,4 +76,4 @@ type Props = {
     removeFn(id: string): void
 }
 
-export default (Note);
+export default Note;

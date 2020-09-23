@@ -5,6 +5,7 @@ export const ADD_NOTE = "ADD_NOTE";
 export const EDIT_NOTE = "EDIT_NOTE";
 export const REMOVE_NOTE = "REMOVE_NOTE";
 export const SET_NOTES = "SET_NOTES";
+export const CLEAR_NOTES = "CLEAR_NOTES";
 
 export interface SetNoteAction {
     type: typeof SET_NOTES;
@@ -26,10 +27,15 @@ export interface AddNoteAction {
     note: INote;
 }
 
+export interface ClearNotesAction {
+    type: typeof CLEAR_NOTES;
+}
+
 export type NoteActionTypes =
     | SetNoteAction
     | EditNoteAction
     | RemoveNoteAction
-    | AddNoteAction;
+    | AddNoteAction
+    | ClearNotesAction;
 
 export type AppActions = NoteActionTypes;

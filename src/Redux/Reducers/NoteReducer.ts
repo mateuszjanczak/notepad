@@ -4,7 +4,8 @@ import {
     ADD_NOTE,
     REMOVE_NOTE,
     EDIT_NOTE,
-    SET_NOTES
+    SET_NOTES,
+    CLEAR_NOTES
 } from "../Types/NoteActionsTypes";
 
 const notesReducerDefaultState: INote[] = [];
@@ -31,6 +32,8 @@ const noteReducer = (
             });
         case SET_NOTES:
             return action.notes;
+        case CLEAR_NOTES:
+            return notesReducerDefaultState;
         default:
             return state;
     }

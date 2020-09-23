@@ -26,12 +26,12 @@ const Wrapper = styled.div`
   display: grid;
   border: 1px solid #333;
   background: linear-gradient(0deg, rgba(255,255,200,1) 20%, rgba(255,255,225,1) 100%);
-  padding: 2rem;
+  padding: 2.5rem 5rem;
   justify-items: center;
   align-self: start;
   justify-self: start;
   
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     justify-self: center;
   }
   

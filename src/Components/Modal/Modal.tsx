@@ -27,7 +27,6 @@ class Modal extends React.Component<IProps, IState> {
         } as Pick<IState, keyof IState>);
     };
 
-
     render() {
 
         const { toggleModal, editFn } = this.props;
