@@ -26,12 +26,14 @@ class Note extends React.Component<Props> {
         return (
             <Wrapper>
                 <Title>{title}</Title>
-                <Content>{content}</Content>
-                <Action>
-                    <Button as={NavLink} to={routes.notes + "/" + id}>VIEW</Button>
-                    <Button onClick={this.toggleModal}>EDIT</Button>
-                    <Button onClick={() => removeFn(id)}>DELETE</Button>
-                </Action>
+                <Container>
+                    <Content>{content}</Content>
+                    <Action>
+                        <Button as={NavLink} to={routes.notes + "/" + id}>VIEW</Button>
+                        <Button onClick={this.toggleModal}>EDIT</Button>
+                        <Button onClick={() => removeFn(id)}>DELETE</Button>
+                    </Action>
+                </Container>
                 {this.state.modal && <Modal note={note} toggleModal={this.toggleModal} editFn={editFn} />}
             </Wrapper>
         )
@@ -40,15 +42,21 @@ class Note extends React.Component<Props> {
 
 const Wrapper = styled.div`
   border: 1px solid #333;
-  background: linear-gradient(0deg, rgba(255,255,200,1) 20%, rgba(255,255,225,1) 100%);
-  padding: 1rem;
-  transition: all 1s;
+  background: linear-gradient(0deg,rgba(255,255,200,1) 20%,rgba(255,255,225,1) 100%);
 `;
+
+const Container = styled.div`
+  padding: 1rem;
+`;
+
 
 const Title = styled.h3`
   text-align: center;
-  margin: 1rem;
-  padding: 0;
+  margin: 0;
+  padding: 1.5rem;
+background-color: #fbb034;
+background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 100%);
+
 `;
 
 const Content = styled.div`

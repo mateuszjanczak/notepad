@@ -1,9 +1,23 @@
 import React from "react";
 import styled from "styled-components";
+import {Redirect} from 'react-router-dom'
 import Login from "../Components/Auth/Login";
 import Register from "../Components/Auth/Register";
+import {routes} from "../Routes/Routes";
 
 class Auth extends React.Component {
+
+    state = {
+        redirect: false
+    }
+
+    toggleRedirect = () => {
+        this.setState({
+            ...this.state,
+            redirect: true
+        })
+    }
+
     render() {
         return (
             <Wrapper>
@@ -11,9 +25,10 @@ class Auth extends React.Component {
                     <Heading>Sign in</Heading>
                 </div>
                 <Container>
-                    <Login />
-                    <Register />
+                    <Login toggleRedirect={this.toggleRedirect}/>
+                    <Register toggleRedirect={this.toggleRedirect}/>
                 </Container>
+                {this.state.redirect && <Redirect to={routes.homepage} />}
             </Wrapper>
         )
     }

@@ -5,7 +5,7 @@ import Button from "../General/Button";
 import AuthService from "../../Service/AuthService";
 import { IError } from "../../Interfaces/IError";
 
-class Login extends React.Component<{}, IState> {
+class Login extends React.Component<IProps, IState> {
 
     state = {
         username: "",
@@ -23,8 +23,11 @@ class Login extends React.Component<{}, IState> {
 
     handleClick = () => {
         const { username, password } = this.state;
+        const { toggleRedirect } = this.props;
+
         AuthService.executeJwtAuthenticationService(username, password)
             .then(data => AuthService.registerSuccessfulLoginForJwt(username, data.token))
+            .then(() => toggleRedirect())
             .catch(error => error.json().then((data: IError) => this.setState({error: true, errorMsg: data.errorMessage})))
     }
 
@@ -38,7 +41,7 @@ class Login extends React.Component<{}, IState> {
                 <Label>
                     <Input type="password" placeholder="password" name="password" value={this.state.password} onChange={this.handleChange}/>
                 </Label>
-                <Button onClick={this.handleClick}>log in</Button>
+                <Button onClick={this.handleClick}>LOG IN</Button>
             </Wrapper>
         )
     }
@@ -72,6 +75,10 @@ const Error = styled.div`
   background: #F39191;
   border: 1px solid #24292e;
 `;
+
+type IProps = {
+    toggleRedirect: () => void;
+}
 
 type IState = {
     username: string,

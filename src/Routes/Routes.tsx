@@ -3,5 +3,6 @@ export const routes = {
     notes: '/notes',
     singleNote: '/notes/:id',
     login: '/login',
-    logout: '/logout'
+    logout: '/logout',
+    create: '/create'
 }

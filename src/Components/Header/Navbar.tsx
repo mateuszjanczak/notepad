@@ -40,7 +40,7 @@ class Navbar extends React.Component {
                         <Link as={NavLink} to={routes.notes}>List</Link>
                     </Item>
                     <Item>
-                        <Link as={NavLink} to={routes.notes}>New Note</Link>
+                        <Link as={NavLink} to={routes.create}>New Note</Link>
                     </Item>
                 </List>
                 <List>

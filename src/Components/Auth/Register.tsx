@@ -2,21 +2,54 @@ import React from "react";
 import styled from "styled-components";
 import Input from "../General/Input";
 import Button from "../General/Button";
+import AuthService from "../../Service/AuthService";
+import {IError} from "../../Interfaces/IError";
 
-class Register extends React.Component {
+class Register extends React.Component<IProps, IState> {
+
+    state = {
+        username: "",
+        password: "",
+        email: "",
+        error: false,
+        errorMsg: ""
+    }
+
+    handleChange = (event: { target: { name: string; value: any; }; }) => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        } as Pick<IState, keyof IState>);
+    };
+
+    handleClick = () => {
+        const {username, password, email} = this.state;
+        const { toggleRedirect } = this.props;
+
+        AuthService.registerAccount(username, password, email)
+            .then(() => AuthService.executeJwtAuthenticationService(username, password))
+            .then(data => AuthService.registerSuccessfulLoginForJwt(username, data.token))
+            .then(() => toggleRedirect())
+            .catch(error => error.json().then((data: IError) => this.setState({
+                error: true,
+                errorMsg: data.errorMessage
+            })));
+    }
+
     render() {
         return (
             <Wrapper>
+                {this.state.error && <Error>{this.state.errorMsg}</Error>}
                 <Label>
-                    <Input placeholder="email"/>
+                    <Input type="email" placeholder="email" name="email" value={this.state.email} onChange={this.handleChange}/>
                 </Label>
                 <Label>
-                    <Input placeholder="username"/>
+                    <Input placeholder="username" name="username" value={this.state.username} onChange={this.handleChange}/>
                 </Label>
                 <Label>
-                    <Input placeholder="password"/>
+                    <Input type="password" placeholder="password" name="password" value={this.state.password} onChange={this.handleChange}/>
                 </Label>
-                <Button>register</Button>
+                <Button onClick={this.handleClick}>REGISTER</Button>
             </Wrapper>
         )
     }
@@ -45,12 +78,22 @@ const Label = styled.div`
 `;
 
 const Error = styled.div`
-  padding: 0.3rem 1rem;
+  width: 30rem;
+  padding: 0.25rem 1rem;
   background: #F39191;
-  border-left: 1px solid #24292e;
-  border-right: 1px solid #24292e;
-  border-bottom: 1px solid #24292e;
+  border: 1px solid #24292e;
 `;
 
+type IProps = {
+    toggleRedirect: () => void;
+}
+
+type IState = {
+    email: string,
+    username: string,
+    password: string,
+    error: boolean,
+    errorMsg: string
+}
 
 export default Register;

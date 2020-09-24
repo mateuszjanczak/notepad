@@ -55,6 +55,23 @@ class NotesService {
             return res.json();
         });
     }
+
+    addNote(title: string, content: string): Promise<INote> {
+        return fetch(this.url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : AuthService.getHeaders()
+            },
+            body: JSON.stringify({
+                title,
+                content
+            })
+        }).then(res => {
+            if(!res.ok) throw res;
+            return res.json();
+        });
+    }
 }
 
 export default new NotesService();
