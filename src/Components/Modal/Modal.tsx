@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {INote} from "../../Interfaces/INote";
 import Input from "../General/Input";
 import Button from "../General/Button";
+import TextArea from "../General/TextArea";
 
 class Modal extends React.Component<IProps, IState> {
 
@@ -20,7 +21,7 @@ class Modal extends React.Component<IProps, IState> {
         })
     }
 
-    handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    handleChange = (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.currentTarget;
         this.setState({
             [name]: value
@@ -40,7 +41,7 @@ class Modal extends React.Component<IProps, IState> {
                         <Input placeholder="Title" name="title" value={title} onChange={this.handleChange}/>
                     </Label>
                     <Label>
-                        <Input placeholder="Content" name="content" value={content} onChange={this.handleChange}/>
+                        <TextArea placeholder="Content" name="content" value={content} onChange={this.handleChange}/>
                     </Label>
                     <Action>
                         <Button onClick={() => editFn(this.state)}>EDIT</Button>

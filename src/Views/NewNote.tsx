@@ -12,6 +12,7 @@ import {
     startAddNote as startAddNoteAction
 } from "../Redux/Actions/NoteActions";
 import {connect} from "react-redux";
+import TextArea from "../Components/General/TextArea";
 
 type Props = LinkDispatchProps;
 
@@ -52,7 +53,7 @@ class NewNote extends React.Component<Props, IState> {
                         <Input placeholder="title" name="title" value={this.state.title} onChange={this.handleChange}/>
                     </Label>
                     <Label>
-                        <Input placeholder="content" name="content" value={this.state.content} onChange={this.handleChange}/>
+                        <TextArea placeholder="content" name="content" value={this.state.content} onChange={this.handleChange}/>
                     </Label>
                     <Action>
                         <Button onClick={this.handleClick}>SAVE</Button>
