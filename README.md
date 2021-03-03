@@ -5,6 +5,9 @@ App for note management.
 * Node.js from [nodejs.org](https://nodejs.org)<br />
 * Running server (back-end) from [github.com](https://github.com/mateuszjanczak/notepad-service)
 
+## Demo
+https://mj-notepad.herokuapp.com/ (wait for heroku to get up)
+
 ## Preview
 ![PREVIEW](./docs/notepad-react-demo.gif)
 
