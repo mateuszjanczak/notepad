@@ -8,22 +8,38 @@ import styled from "styled-components";
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "./Redux/Store/ConfigureStore";
+import { AppContext } from './Context/AppContext';
 
 class App extends React.Component {
-  render() {
-    return (
-        <Provider store={store}>
-            <BrowserRouter>
-                <GlobalStyle />
-                <Wrapper>
-                    <Header />
-                    <Container />
-                </Wrapper>
-                <Footer />
-            </BrowserRouter>
-        </Provider>
-    );
-  }
+
+    state = {
+        authenticated: false,
+        toggleAuthenticated: (isAuthenticated: boolean) => this._toggleAuthenticated(isAuthenticated)
+    }
+
+    _toggleAuthenticated = (isAuthenticated: boolean) => {
+        this.setState({
+            ...this.state,
+            authenticated: isAuthenticated
+        })
+    }
+
+    render() {
+        return (
+            <AppContext.Provider value={this.state}>
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <GlobalStyle />
+                        <Wrapper>
+                            <Header />
+                            <Container />
+                        </Wrapper>
+                        <Footer />
+                    </BrowserRouter>
+                </Provider>
+            </AppContext.Provider>
+        );
+    }
 }
 
 const Wrapper = styled.div`

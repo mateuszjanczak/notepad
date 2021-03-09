@@ -8,11 +8,15 @@ import {
 import {connect} from "react-redux";
 import { RouteComponentProps  } from "react-router-dom";
 import {routes} from "../Routes/Routes";
+import {AppContext} from "../Context/AppContext";
 
 class Logout extends React.Component<LinkDispatchProps & RouteComponentProps , any> {
 
+    static contextType = AppContext;
+
     componentDidMount() {
         AuthService.logout();
+        this.context.toggleAuthenticated(false);
         const { startClearNotes } = this.props;
         startClearNotes();
         this.props.history.push(routes.login);

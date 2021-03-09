@@ -4,8 +4,11 @@ import Input from "../General/Input";
 import Button from "../General/Button";
 import AuthService from "../../Service/AuthService";
 import { IError } from "../../Interfaces/IError";
+import {AppContext} from "../../Context/AppContext";
 
 class Login extends React.Component<IProps, IState> {
+
+    static contextType = AppContext;
 
     state = {
         username: "",
@@ -27,7 +30,10 @@ class Login extends React.Component<IProps, IState> {
 
         AuthService.executeJwtAuthenticationService(username, password)
             .then(data => AuthService.registerSuccessfulLoginForJwt(username, data.token))
-            .then(() => toggleRedirect())
+            .then(() => {
+                this.context.toggleAuthenticated(true);
+                toggleRedirect();
+            })
             .catch(error => error.json().then((data: IError) => this.setState({error: true, errorMsg: data.errorMessage})))
     }
 
@@ -55,11 +61,11 @@ const Wrapper = styled.div`
   justify-items: center;
   align-self: start;
   justify-self: end;
-  
+
   @media (max-width: 992px) {
     justify-self: center;
   }
-  
+
   @media (max-width: 575px) {
     justify-self: unset;
   }

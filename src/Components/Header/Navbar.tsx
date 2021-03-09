@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {NavLink} from "react-router-dom";
 import {routes} from "../../Routes/Routes";
 import AuthService from "../../Service/AuthService";
+import { AppContext } from "../../Context/AppContext";
 
 class Navbar extends React.Component {
 
@@ -25,8 +26,9 @@ class Navbar extends React.Component {
     }
 
     render() {
-        const renderLink = () => {
-            return this.state.isLogged ? (
+        const renderLink = (isAuthenticated: boolean) => {
+            console.log(isAuthenticated)
+            return isAuthenticated ? (
                 <Link as={NavLink} to={routes.logout} onClick={this.handleClick}>Logout</Link>
             ) : (
                 <Link as={NavLink} to={routes.login}>Sign In</Link>
@@ -45,7 +47,11 @@ class Navbar extends React.Component {
                 </List>
                 <List>
                     <Item>
-                        {renderLink()}
+                        <AppContext.Consumer>
+                            {({authenticated}) => (
+                                renderLink(authenticated)
+                            )}
+                        </AppContext.Consumer>
                     </Item>
                 </List>
             </Nav>
