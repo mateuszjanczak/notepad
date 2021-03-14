@@ -7,10 +7,11 @@ const Button = styled.button`
   color: #24292e;
   background: none;
   margin: 1rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0 1.5rem;
   text-decoration: none;
   font-weight: normal;
-  
+  height: 40px;
+
   &:hover {
     color: black;
     background: #eed7c5;

@@ -26,10 +26,20 @@ class Login extends React.Component<IProps, IState> {
 
     handleClick = () => {
         const { username, password } = this.state;
+        this.userAuthorization(username, password);
+    }
+
+    handleDemoAccount = () => {
+        const username = "DEMO";
+        const password = "DEMO123";
+        this.userAuthorization(username, password);
+    }
+
+    userAuthorization = (username: string, password: string) => {
         const { toggleRedirect } = this.props;
 
         AuthService.executeJwtAuthenticationService(username, password)
-            .then(data => AuthService.registerSuccessfulLoginForJwt(username, data.token))
+            .then(({token}) => AuthService.registerSuccessfulLoginForJwt(username, token))
             .then(() => {
                 this.context.toggleAuthenticated(true);
                 toggleRedirect();
@@ -48,6 +58,7 @@ class Login extends React.Component<IProps, IState> {
                     <Input type="password" placeholder="password" name="password" value={this.state.password} onChange={this.handleChange}/>
                 </Label>
                 <Button onClick={this.handleClick}>LOG IN</Button>
+                <Button onClick={this.handleDemoAccount}>USE A DEMO ACCOUNT</Button>
             </Wrapper>
         )
     }
@@ -61,11 +72,11 @@ const Wrapper = styled.div`
   justify-items: center;
   align-self: start;
   justify-self: end;
-
+  
   @media (max-width: 992px) {
     justify-self: center;
   }
-
+  
   @media (max-width: 575px) {
     justify-self: unset;
   }

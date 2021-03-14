@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import { RouteComponentProps, withRouter } from "react-router";
 import Button from "../General/Button";
 import {INote} from "../../Interfaces/INote";
 import Modal from "../Modal/Modal";
-import {NavLink} from "react-router-dom";
-import {routes} from "../../Routes/Routes";
+import { routes } from "../../Routes/Routes";
 
-class Note extends React.Component<Props> {
+class Note extends React.Component<Props & RouteComponentProps> {
 
     state = {
         modal: false
@@ -19,6 +19,11 @@ class Note extends React.Component<Props> {
         })
     }
 
+    handleBtnView = (id: string) => {
+        const { history } = this.props;
+        history.push(`${routes.notes}/${id}`);
+    }
+
     render() {
         const { note, editFn, removeFn } = this.props;
         const { id, title, content } = note;
@@ -29,7 +34,7 @@ class Note extends React.Component<Props> {
                 <Container>
                     <Content>{content}</Content>
                     <Action>
-                        <Button as={NavLink} to={routes.notes + "/" + id}>VIEW</Button>
+                        <Button onClick={() => this.handleBtnView(id)}>VIEW</Button>
                         <Button onClick={this.toggleModal}>EDIT</Button>
                         <Button onClick={() => removeFn(id)}>DELETE</Button>
                     </Action>
@@ -54,9 +59,8 @@ const Title = styled.h3`
   text-align: center;
   margin: 0;
   padding: 1.5rem;
-background-color: #fbb034;
-background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 100%);
-
+  background-color: #fbb034;
+  background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 100%);
 `;
 
 const Content = styled.div`
@@ -69,7 +73,7 @@ const Content = styled.div`
   margin: 0 0 1rem 0;
   display: -webkit-box;
   -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;  
+  -webkit-box-orient: vertical;
 `;
 
 const Action = styled.div`
@@ -80,8 +84,8 @@ const Action = styled.div`
 
 type Props = {
     note: INote,
-    editFn(note: INote): void
+    editFn(note: INote): void,
     removeFn(id: string): void
 }
 
-export default Note;
+export default withRouter(Note);
