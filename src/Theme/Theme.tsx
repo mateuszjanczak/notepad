@@ -1,6 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+    @import url('https://fonts.googleapis.com/css2?family=Asap+Condensed&display=swap');
+  
     *, *::before, *::after {
         box-sizing: border-box;
     }
@@ -14,8 +16,8 @@ const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;
         padding: 0;
-        font-size: 1.5rem;
-        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 16px;
+        font-family: 'Asap Condensed', sans-serif;
     }
     
     *:focus {

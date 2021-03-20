@@ -64,7 +64,7 @@ const Title = styled.h3`
 `;
 
 const Content = styled.div`
-  height: 10.5rem;
+  height: 11rem;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
@@ -72,7 +72,7 @@ const Content = styled.div`
   position: relative;
   margin: 0 0 1rem 0;
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
 `;
 
