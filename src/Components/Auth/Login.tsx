@@ -44,7 +44,7 @@ class Login extends React.Component<IProps, IState> {
                 this.context.toggleAuthenticated(true);
                 toggleRedirect();
             })
-            .catch(error => error.json().then((data: IError) => this.setState({error: true, errorMsg: data.errorMessage})))
+            .catch(error => error.json().then((data: IError) => this.setState({error: true, errorMsg: data.hasOwnProperty('fieldsErrorList') ? data.fieldsErrorList.sort().reverse()[0] : data.errorMessage})))
     }
 
     render() {
